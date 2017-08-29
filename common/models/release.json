@@ -1,0 +1,47 @@
+{
+  "name": "Release",
+  "plural": "releases",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "source": {
+      "type": "string",
+      "required": true,
+      "index": true
+    },
+    "name": {
+      "type": "string",
+      "required": true,
+      "index": true
+    },
+    "version": {
+      "type": "string",
+      "required": true,
+      "index": true
+    },
+    "prerelease": {
+      "type": "boolean",
+      "index": true
+    },
+    "baseRawUrl": {
+      "type": "string",
+      "required": true
+    },
+    "createdAt": {
+      "type": "date"
+    },
+    "publishedAt": {
+      "type": "date"
+    },
+    "builtAt": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

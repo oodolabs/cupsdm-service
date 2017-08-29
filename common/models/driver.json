@@ -1,0 +1,43 @@
+{
+  "name": "Driver",
+  "plural": "drivers",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "model": {
+      "type": "string",
+      "required": true,
+      "index": true
+    },
+    "maker": {
+      "type": "string",
+      "required": true,
+      "index": true
+    },
+    "driver": {
+      "type": "string",
+      "required": true,
+      "index": true
+    },
+    "driverModel": {
+      "type": "string",
+      "index": true
+    },
+    "version": {
+      "type": "string",
+      "required": true,
+      "index": true
+    },
+    "scripts": {
+      "type": "object",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

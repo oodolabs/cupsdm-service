@@ -1,0 +1,12 @@
+{
+  "memory": {
+    "name": "memory",
+    "connector": "memory"
+  },
+  "db": {
+    "name": "db",
+    "host": "127.0.0.1",
+    "database": "cupsdm",
+    "connector": "mongodb"
+  }
+}
