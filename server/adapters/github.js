@@ -3,13 +3,13 @@ const createHandler = require('github-webhook-handler');
 const PromiseA = require('bluebird');
 
 exports.hook = function (server, options) {
+  const logger = server.logger.child({category: 'adapter:github'});
   options = options || {};
-  options.path = options.hookPath;
+  options.path = options.path || options.mountPath;
   const handler = createHandler(options);
 
-  handler.on('error', function (err) {
-    console.error('Error:', err.message)
-  });
+  handler.on('error', err => logger.error(err));
+  handler.on('*', event => logger.debug(event.event));
 
   /**
    *  [release] event.payload: https://developer.github.com/v3/activity/events/types/#releaseevent
@@ -20,8 +20,13 @@ exports.hook = function (server, options) {
 
   return (req, res) => {
     handler(req, res, err => {
+      let message = 'no such location';
+      if (err) {
+        logger.error(err)
+        message = JSON.stringify({error: err.message});
+      }
       res.statusCode = 404;
-      res.end('no such location');
+      res.end(message);
     });
   }
 };

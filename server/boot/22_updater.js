@@ -2,23 +2,26 @@ const PromiseA = require('bluebird');
 const Builder = require('cupsdm-builder');
 const _ = require('lodash');
 const tmp = require('tmp');
-const log = require('pino')();
 
 module.exports = server => {
+  const logger = server.logger.child({category: 'updater'});
   const options = server.get('repo');
   const {provider} = options;
   const adapter = require('../adapters/' + provider);
 
   // Subscribe release event
-  server.on('release', data => update(server, data, options));
+  server.on('release', data => {
+    logger.info('Handle release event:', data);
+    return update(server, data, options, logger);
+  });
 
   // Force update when startup
   adapter.latest(options)
-    .then(data => data && update(server, data, options))
-    .then(() => log.info('Updater started'));
+    .then(data => data && update(server, data, options, logger))
+    .then(() => logger.info('Updater started'));
 };
 
-function update(server, data, options) {
+function update(server, data, options, logger) {
   options = options || {};
   const {Release} = server.models;
   const pkg = options.fullname + '#' + data.version;
@@ -33,10 +36,10 @@ function update(server, data, options) {
       }).then(() => {
         return PromiseA.fromCallback(cb => inst.updateAttribute('builtAt', new Date(), cb));
       }).then(() => {
-        log.info(`Published release ${pkg}`);
+        logger.info(`Published release ${pkg}`);
       });
     } else {
-      log.info(`Ignore published release ${pkg}`);
+      logger.info(`Ignore published release ${pkg}`);
     }
   });
 }
