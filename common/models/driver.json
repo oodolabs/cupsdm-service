@@ -22,7 +22,7 @@
       "required": true,
       "index": true
     },
-    "driverModel": {
+    "compatible": {
       "type": "string",
       "index": true
     },

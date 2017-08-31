@@ -15,7 +15,7 @@
     "bluebird": "^3.5.0",
     "compression": "^1.7.0",
     "cors": "^2.8.4",
-    "cupsdm-builder": "^0.2.1",
+    "cupsdm-builder": "^0.3.0",
     "github-webhook-handler": "^0.6.0",
     "helmet": "^3.8.1",
     "lodash": "^4.17.4",
